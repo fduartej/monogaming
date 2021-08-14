@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,5 +50,15 @@ public class ParticipanteController {
         return  new ResponseEntity<String>(id,
              HttpStatus.CREATED);
     }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Participante> find(@PathVariable String id){
+        if(participantes.containsKey(id)){
+            Participante p = participantes.get(id);
+            return new ResponseEntity<Participante>(p, HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Participante>(HttpStatus.NOT_FOUND);
+        }
+    }    
 
 }
