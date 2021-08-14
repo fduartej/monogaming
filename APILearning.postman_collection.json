@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "8ac22ed6-8393-4be2-a1b5-9cee657aace7",
+		"name": "APILearning",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Participantes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/participante/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"participante",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Participante",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"name2\",\r\n        \"address\": \"direccion2\",\r\n        \"email\": \"email@mail.com2\",\r\n        \"phoneNumber\": \"9999999992\",\r\n        \"birthDate\": \"2021-08-14T20:58:57.618+00:00\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/participante/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"participante",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
