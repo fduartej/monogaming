@@ -1,0 +1,13 @@
+GET http://localhost:8080/api/participante/ HTTP/1.0
+
+
+POST http://localhost:8080/api/participante/ HTTP/1.0
+Content-Type: application/json
+
+{
+        "name": "name3",
+        "address": "direccion3",
+        "email": "email@mail.com3",
+        "phoneNumber": "9999999993",
+        "birthDate": "2021-08-14T20:58:57.618+00:00"
+}
