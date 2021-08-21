@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.acme.demoapi.repository.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value ="api/factura", produces ="application/json")
@@ -29,6 +30,21 @@ public class FacturaController {
         listItems.stream().forEach(o -> o.setFactura(generada));
         detalleFacturaData.saveAllAndFlush(listItems);
         return new ResponseEntity<Integer>(p.getId(),HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/{numeroFactura}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Factura> findByNumber(@PathVariable String numeroFactura){
+        Optional<Factura> optFactura =facturaData.findByNumero(numeroFactura);
+        if(optFactura.isPresent()){
+            Factura factura = optFactura.get();
+            List<DetalleFactura> detalleFacturas = detalleFacturaData.findItemsByFactura(factura);
+            factura.setDetalleFacturas(detalleFacturas);
+            return new ResponseEntity<Factura>(factura,HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Factura>(HttpStatus.NOT_FOUND);
+        }
+
+        
     }
 
     
