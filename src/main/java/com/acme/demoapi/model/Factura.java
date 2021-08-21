@@ -12,6 +12,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Entity
+@Table(name = "t_factura")
 public class Factura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
