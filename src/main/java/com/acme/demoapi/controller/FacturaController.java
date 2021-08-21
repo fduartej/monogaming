@@ -24,8 +24,9 @@ public class FacturaController {
     public ResponseEntity<Integer> create(@RequestBody Factura p){
         facturaData.save(p);
         facturaData.flush(); //-> id
+        Factura generada = p;
         List<DetalleFactura> listItems = p.getDetalleFacturas();
-        listItems.stream().forEach(o -> o.setFactura(p));
+        listItems.stream().forEach(o -> o.setFactura(generada));
         detalleFacturaData.saveAllAndFlush(listItems);
         return new ResponseEntity<Integer>(p.getId(),HttpStatus.CREATED);
     }
