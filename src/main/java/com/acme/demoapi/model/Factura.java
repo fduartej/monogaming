@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import lombok.*;
 import javax.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
-
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,5 +25,7 @@ public class Factura {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date fechaFactura;
     private BigDecimal totalFactura;
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<DetalleFactura> detalleFacturas;
     
 }
