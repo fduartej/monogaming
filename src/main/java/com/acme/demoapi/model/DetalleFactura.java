@@ -1,5 +1,7 @@
 package com.acme.demoapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.*;
 import lombok.*;
@@ -18,6 +20,7 @@ public class DetalleFactura {
     private int cantidad;
     private BigDecimal precio;
     private String producto;
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "factura_id")    
     private Factura factura;
