@@ -26,6 +26,8 @@ public class Factura {
     private Date fechaFactura;
     private BigDecimal totalFactura;
     @Transient
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "factura_id")
     private List<DetalleFactura> detalleFacturas;
     
 }
