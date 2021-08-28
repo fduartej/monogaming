@@ -23,7 +23,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("My App API")
+                .title("Contoso API")
                 .description("This application designed for integration propousal")
                 .build();
     }

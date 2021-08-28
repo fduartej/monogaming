@@ -23,7 +23,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("My App API")
+                .title("SUNAT API")
                 .description("APIS del gobierno SUNAT")
                 .build();
     }
