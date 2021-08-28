@@ -3,10 +3,12 @@ package com.acme.demoapi.controller;
 import com.acme.demoapi.model.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import com.acme.demoapi.integration.sunat.api.*;
 
 import com.acme.demoapi.repository.*;
 import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping(value ="api/factura", produces ="application/json")
@@ -14,11 +16,13 @@ public class FacturaController {
 
     private final FacturaRepository facturaData;
     private final DetalleFacturaRepository detalleFacturaData;
+    private final ComplianceAPI complianceAPI;
 
     public FacturaController(FacturaRepository facturaData,
-        DetalleFacturaRepository detalleFacturaData){
+        DetalleFacturaRepository detalleFacturaData, ComplianceAPI complianceAPI){
         this.facturaData = facturaData;
         this.detalleFacturaData = detalleFacturaData;
+        this.complianceAPI= complianceAPI;
     }
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
