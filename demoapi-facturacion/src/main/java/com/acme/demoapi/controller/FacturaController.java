@@ -26,14 +26,15 @@ public class FacturaController {
     }
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> create(@RequestBody Factura p){
+    public ResponseEntity<String> create(@RequestBody Factura p){
         facturaData.save(p);
         facturaData.flush(); //-> id
         Factura generada = p;
         List<DetalleFactura> listItems = p.getDetalleFacturas();
         listItems.stream().forEach(o -> o.setFactura(generada));
         detalleFacturaData.saveAllAndFlush(listItems);
-        return new ResponseEntity<Integer>(p.getId(),HttpStatus.CREATED);
+        complianceAPI.send(generada);
+        return new ResponseEntity<String>(generada.getNumeroFactura(),HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{numeroFactura}", produces = MediaType.APPLICATION_JSON_VALUE)
