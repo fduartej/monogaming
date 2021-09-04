@@ -8,6 +8,7 @@ import com.acme.demoapi.model.Factura;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.acme.demoapi.integration.sunat.dto.Invoice;
 
 @Service
 public class SunatProducer {
@@ -23,7 +24,13 @@ public class SunatProducer {
     public void send(Factura facturaContoso){
         try{
             ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(facturaContoso);
+            Invoice payload = new Invoice();
+            payload.setFechaEmision(facturaContoso.getFechaFactura());
+            payload.setImporte(facturaContoso.getTotalFactura());
+            payload.setRucEmisor("999999999");
+            payload.setRucComprador(facturaContoso.getCodigoCliente());   
+
+            String json = mapper.writeValueAsString(payload);
             amqpTemplate.convertSendAndReceive(EXCHANGE_NAME, "", json);
           }catch(JsonProcessingException e){
             e.printStackTrace();
