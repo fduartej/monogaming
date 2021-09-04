@@ -4,6 +4,7 @@ import com.acme.demoapi.model.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import com.acme.demoapi.integration.sunat.api.*;
+import com.acme.demoapi.integration.sunat.amqp.*;
 
 import com.acme.demoapi.repository.*;
 import java.util.List;
@@ -17,12 +18,16 @@ public class FacturaController {
     private final FacturaRepository facturaData;
     private final DetalleFacturaRepository detalleFacturaData;
     private final ComplianceAPI complianceAPI;
+    private final SunatProducer sunatProducer;
 
     public FacturaController(FacturaRepository facturaData,
-        DetalleFacturaRepository detalleFacturaData, ComplianceAPI complianceAPI){
+        DetalleFacturaRepository detalleFacturaData, 
+        ComplianceAPI complianceAPI,
+        SunatProducer sunatProducer){
         this.facturaData = facturaData;
         this.detalleFacturaData = detalleFacturaData;
         this.complianceAPI= complianceAPI;
+        this.sunatProducer=sunatProducer;
     }
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,7 +38,8 @@ public class FacturaController {
         List<DetalleFactura> listItems = p.getDetalleFacturas();
         listItems.stream().forEach(o -> o.setFactura(generada));
         detalleFacturaData.saveAllAndFlush(listItems);
-        complianceAPI.send(generada);
+        //complianceAPI.send(generada);
+        sunatProducer.send(generada);
         return new ResponseEntity<String>(generada.getNumeroFactura(),HttpStatus.CREATED);
     }
 
