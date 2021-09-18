@@ -19,6 +19,16 @@
             "mainClass": "com.acme.demoapi.DemoapiApplication",
             "projectName": "demoapi",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoapiApplication<demoweb>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.contoso.demoweb.DemowebApplication",
+            "projectName": "demoweb",
+            "args": ""
         }
     ]
 }
