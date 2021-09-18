@@ -17,6 +17,13 @@ public class RabbitConfig {
     @Value("${sunat.rabbitmq.queue}")
     private String QUEUE_NAME;
 
+
+    @Value("${sunat.rabbitmq.exchange.response}")
+    private String EXCHANGE_NAME_RESPONSE;
+    @Value("${sunat.rabbitmq.queue.response}")
+    private String QUEUE_NAME_RESPONSE;
+
+    //request
     @Bean
     public Queue createQueue() {
       return new Queue(QUEUE_NAME, true);
@@ -31,4 +38,22 @@ public class RabbitConfig {
     public Binding queueBinding() {
       return new Binding(QUEUE_NAME, Binding.DestinationType.QUEUE, EXCHANGE_NAME, "", null);
     }
+
+
+    //response
+    @Bean
+    public Queue createQueueResponse() {
+      return new Queue(QUEUE_NAME_RESPONSE, true);
+    }
+    
+    @Bean
+    public Exchange fanoutExchangeResponse() {
+        return new FanoutExchange(EXCHANGE_NAME_RESPONSE, true, false);
+    }
+  
+    @Bean
+    public Binding queueBindingResponse() {
+         return new Binding(QUEUE_NAME_RESPONSE, Binding.DestinationType.QUEUE, EXCHANGE_NAME_RESPONSE, "", null);
+    }
+  
 }

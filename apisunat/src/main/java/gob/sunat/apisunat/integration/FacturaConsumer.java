@@ -8,10 +8,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import gob.sunat.apisunat.model.*;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
+
+import gob.sunat.apisunat.service.*;
 
 @Service
 public class FacturaConsumer {
+
+    private GeneracionFactura generacionFactura;
+    private FacturaProducer facturaProducer;
+
+    public FacturaConsumer(GeneracionFactura generacionFactura,
+      FacturaProducer facturaProducer){
+      this.generacionFactura = generacionFactura;
+      this.facturaProducer = facturaProducer;
+    }
 
     @RabbitListener(queues = "${sunat.rabbitmq.queue}")
     public void receiveMessage(Message message) {
@@ -19,7 +29,8 @@ public class FacturaConsumer {
         try{
             ObjectMapper mapper = new ObjectMapper();
             Invoice invoice =mapper.readValue(json, Invoice.class);
-            System.out.println("Invoice:" + invoice);
+            generacionFactura.generarNumeroFactura(invoice); 
+            facturaProducer.send(invoice);
           }catch(Exception e){
             e.printStackTrace();
           }
