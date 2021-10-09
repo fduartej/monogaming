@@ -54,7 +54,7 @@ public class CatalogoController{
         if(user==null) {
             model.addAttribute("mensaje", "Debe loguearse antes de agregar");
         }else{
-            Producto productSeleccionado = productsData.getOne(id);
+            Producto productSeleccionado = productsData.getById(id);
             Optional<Proforma> item= 
                 proformaData.findProformaByUsuarioAndProducto(user, productSeleccionado);
             if(!item.isPresent()){

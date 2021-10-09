@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" 
+    th:replace="~{fragments/layout :: layout (~{::body},'proforma')}">
+
+<head>
+  <title>Producto</title>
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css} " />
+  <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+ 
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mt-5 mb-5">
+        <h2>Carrito</h2><br/>
+        <a href="/pago/create" class="btn btn-primary">Pagar</a>
+        <table id="example" class="table table-bordered table-responsive" style="width: 100%">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Descripcion</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="proforma : ${proformas}">
+                <td th:text="${proforma.product.id}"></td>
+                <td th:text="${proforma.product.descripcion}"></td>
+                <td th:text="${proforma.precio}"></td>
+                <td>
+                  <form th:object="${proforma}" th:action="@{/proforma/update}" method="post">
+                    <input type="number" class="form-control" name="cantidad"
+                      autocomplete="off" th:value="${proforma.cantidad}"
+                      min="1" max="100"/>
+                    <input type="hidden" name="id" th:value="${proforma.id}"/>
+                    <button th:with="text='Update'" class="btn btn-primary" type="submit" th:text="${text}"/>
+                  </form>
+                </td>
+            </tr>
+          </tbody>
+        </table>
+        <p th:text="${mensaje}" />
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

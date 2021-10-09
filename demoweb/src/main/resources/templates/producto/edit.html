@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" 
+    th:replace="~{fragments/layout :: layout (~{::body},'producto')}">
+
+<body>
+ 
+    <div class="container">
+
+        <div class="row">
+          <div class="col-sm-10 mt-5">
+            <div class="form-group row">
+              <h1>Producto</h1>
+            </div>
+            <form th:object="${producto}" th:action="@{/producto/edit}" method="post">
+
+              <input type="hidden" th:field="*{id}"/>
+
+              <div class="form-group row">
+                <div class="col-sm-2">
+                  <label for="descripcion">Descripcion</label>
+                </div>
+                <div class="col-sm-2">
+                  <input type="text" th:field="*{descripcion}" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-2">
+                  <label for="precio">Precio</label>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" th:field="*{Precio}" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-2">
+                  <label for="dueDate">Due Date</label>
+                </div>
+                <div class="col-sm-3">
+                  <div class="input-group date">
+                    <input type="text" class="form-control" id="dueDate" 
+                      data-inputmask="'alias': 'datetime', 'inputFormat': 'dd/mm/yyyy'" 
+                      autocomplete="off" th:field="*{dueDate}" />
+                    <div class="input-group-append">
+                      <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-2">
+                  <label for="imageFileName">File Name</label>
+                </div>
+                <div class="col-sm-2">
+                  <input type="text" th:field="*{imageFileName}" />
+                </div>
+              </div>    
+              <div class="form-group row">
+                <div class="col-sm-2">
+                  <label for="status">Status</label>
+                </div>
+                <div class="col-sm-2">
+                  <select id="status" placeholder="status" autocomplete="off" class="form-control"
+                    th:field="*{status}">
+                    <option value="-">None</option>
+                    <option value="A">Active</option>
+                    <option value="I">Inactive</option>
+                  </select>
+                </div>
+              </div>                        
+              <div class="form-group row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2">
+                  <button th:with="text='Edit Producto'" class="btn btn-primary" type="submit" th:text="${text}"/>
+                </div>
+              </div>
+            </form>
+            <p th:text="${mensaje}" />
+          </div>
+        </div>
+      </div>
+    
+      <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+      <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+      <script th:src="@{/webjars/bootstrap-datepicker/js/bootstrap-datepicker.min.js}"></script>
+      <script th:src="@{/webjars/jquery.inputmask/jquery.inputmask.min.js}"></script>    
+  
+      <script>
+        $('.input-group.date').datepicker({
+          autoclose: true,
+          todayHighlight: true
+        });
+      </script>
+      <script>
+        $(":input").inputmask();
+      </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" 
+    th:replace="~{fragments/layout :: layout (~{::body},'pedido')}">
+
+<head>
+  <title>Pedido</title>
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css} " />
+  <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+ 
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mt-5 mb-5">
+        <h2>Pedido</h2><br/>
+        <table id="example" class="table table-bordered table-responsive" style="width: 100%">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Id</th>
+              <th>Fecha</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="pedido : ${pedidos}">
+                <td>
+                  <a th:href="@{'/pedido/view/__${pedido.id}__'}"
+                     class="btn btn-info" role="button">View</a>
+                </td>
+                <td th:text="${pedido.id}"></td>
+                <td th:text="${pedido.orderDate}"></td>
+                <td th:text="${pedido.montoTotal}"></td>
+            </tr>
+          </tbody>
+        </table>
+        <p th:text="${mensaje}" />
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

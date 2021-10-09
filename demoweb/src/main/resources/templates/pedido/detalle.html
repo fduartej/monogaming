@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org" 
+    th:replace="~{fragments/layout :: layout (~{::body},'detalle')}">
+
+<head>
+  <title>Pedido</title>
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+  <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css} " />
+  <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <script th:src="@{/webjars/jquery-ui/jquery-ui.min.js}"></script>
+  <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+ 
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mt-5 mb-5">
+        <h2>Detalle Pedido</h2><br/>
+        <table id="example" class="table table-bordered table-responsive" style="width: 100%">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="detalle : ${detalles}">
+                <td th:text="${detalle.id}"></td>
+                <td th:text="${detalle.product.descripcion}"></td>
+                <td th:text="${detalle.precio}"></td>
+                <td th:text="${detalle.cantidad}"></td>
+            </tr>
+          </tbody>
+        </table>
+        <p th:text="${mensaje}" />
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
